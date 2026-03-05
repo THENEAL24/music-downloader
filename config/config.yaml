@@ -1,0 +1,10 @@
+app:
+  base_url: "https://rus.hitmotop.com"
+  search_results_per_page: 48
+track:
+  items_css: "div.track__info"
+  artist_css: "div.track__desc"
+  title_css: "div.track__title"
+  dl_btn_css: "a.track__download-btn"
+client:
+  client_timeout: 20s
