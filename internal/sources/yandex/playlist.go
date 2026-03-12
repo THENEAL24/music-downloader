@@ -5,25 +5,27 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"time"
+
 	"github.com/THENEAL24/Music-Downloader/internal/domain"
 )
 
-func FetchYandexPlaylist(rawURL, token string) ([]domain.TrackQuery, error) {
-	client := newHTTPClient(cfg.Client)
+var yandexClient = &http.Client{Timeout: 20 * time.Second}
 
+func FetchYandexPlaylist(rawURL, token string) ([]domain.TrackQuery, error) {
 	rePlaylist := regexp.MustCompile(`users/([^/]+)/playlists/(\d+)`)
 	if m := rePlaylist.FindStringSubmatch(rawURL); m != nil {
-		return fetchUserPlaylist(client, m[1], m[2], token)
+		return fetchUserPlaylist(yandexClient, m[1], m[2], token)
 	}
 
 	reAlbum := regexp.MustCompile(`album/(\d+)`)
 	if m := reAlbum.FindStringSubmatch(rawURL); m != nil {
-		return fetchAlbum(client, m[1], token)
+		return fetchAlbum(yandexClient, m[1], token)
 	}
 
 	return nil, fmt.Errorf(
-		"неподдерживаемый URL\nОжидается:\n"+
-			"  https://music.yandex.ru/users/{login}/playlists/{id}\n"+
+		"неподдерживаемый URL\nОжидается:\n" +
+			"  https://music.yandex.ru/users/{login}/playlists/{id}\n" +
 			"  https://music.yandex.ru/album/{id}",
 	)
 }

@@ -4,13 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-
-	"github.com/THENEAL24/Music-Downloader/config"
 )
-
-func newHTTPClient(cfg config.ClientConfig) *http.Client {
-	return &http.Client{Timeout: cfg.ClientTimeout}
-}
 
 func doRequest(client *http.Client, url, token string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
