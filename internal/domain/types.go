@@ -28,3 +28,12 @@ type DownloadSession struct {
 	Downloaded []DownloadedTrack
 	Failed     []FailedTrack
 }
+
+type DownloadResult struct {
+	Query    TrackQuery
+	Success  bool
+	Filename string
+	Content  []byte
+	Source   string
+	Error    string
+}

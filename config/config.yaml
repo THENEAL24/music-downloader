@@ -8,3 +8,26 @@ track:
   dl_btn_css: "a.track__download-btn"
 client:
   client_timeout: 20s
+  mp3_timeout: 30s
+ytdlp:
+  workers: 3
+  rps: 2
+  timeout: 2m
+  audio_format: "mp3"
+  audio_quality: "192K"
+  max_audio_size_mb: 30
+downloader:
+  workers: 5
+  hitmo_delay: 1s
+  use_ytdlp_fallback: true
+zip:
+  compression_level: 6
+server:
+  addr: ":8080"
+  read_timeout: 5m
+  write_timeout: 10m
+api:
+  static_dir: "internal/api/static"
+  max_upload_mb: 10
+  result_ttl: 30m
+  evict_interval: 5m
